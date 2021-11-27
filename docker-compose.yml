@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  app:
+    container_name: appnode
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+  mongo:
+    container_name: bdmongo
+    image: mongo:4
+    ports:
+      - "27017:27017"
+    
+    logging:
+      driver: none
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    
