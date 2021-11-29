@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const Product = require('../models/products');
+const Image = require('../models/Image');
+const { unlink } = require('fs-extra');
+const path = require('path');
 
 
 router.get('/',(req,res, next)=>{
@@ -23,21 +26,57 @@ router.get('/index',(req, res, next)=>{
 });
 
 router.post('/index', passport.authenticate('local-signin', {
-    successRedirect: '/dashboard',
+    successRedirect: '/catalogo',
     failureRedirect: '/index',
     failureFlash: true
-  }));
+}));
 
 router.get('/profile',isAuthenticated, (req, res, next) => {
     res.render('profile');
-  });
+});
 
-  router.get('/dashboard',isAuthenticated, async(req, res, next) => {
-    const products = await Product.find()
+router.get('/dashboard',isAuthenticated, async(req, res, next) => {
+    const products = await Product.find({Usuario: req.user.id})
     res.render('dashboard',{
       products
     });
-  });
+});
+
+router.get('/catalogo',isAuthenticated, async(req, res, next) => {
+  const images = await Image.find();
+  res.render('catalogo', { images });
+});
+
+router.get('/upimg',isAuthenticated, async(req, res, next) => {
+  res.render('upimg');
+});
+
+router.post('/upimg',isAuthenticated, async(req, res, next) => {
+  const image = new Image();
+    image.title = req.body.title;
+    image.description = req.body.description;
+    image.filename = req.file.filename;
+    image.path = '/img/up/' + req.file.filename;
+    image.originalname = req.file.originalname;
+    image.mimetype = req.file.mimetype;
+    image.size = req.file.size;
+
+    await image.save();
+    res.redirect('catalogo');
+});
+
+router.get('/image/:id',isAuthenticated, async(req, res, next) => {
+    const { id } = req.params;
+    const image = await Image.findById(id);
+    res.render('image', { image });
+});
+
+router.get('/image/:id/delete',isAuthenticated, async(req, res, next) => {
+  const { id } = req.params;
+  const imageDeleted = await Image.findByIdAndDelete(id);
+  await unlink(path.resolve('./src/public' + imageDeleted.path));
+  res.redirect('/catalogo');
+});
 
 router.get('/logout', (req, res, next) => {
     req.logOut();
@@ -46,6 +85,7 @@ router.get('/logout', (req, res, next) => {
 
 router.post('/add',isAuthenticated, async (req, res, next) => {
     const product = new Product (req.body);
+    product.Usuario = req.user.id;
     await product.save();
     res.redirect('dashboard');
 });

@@ -1,4 +1,4 @@
-.fondo{
+.fondo1{
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../img/1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -8,3 +8,17 @@
 .header .navbar {
     background-color: transparent !important;
   }
+
+.logo img{
+    position: absolute;
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.fondo{
+    background: white;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
