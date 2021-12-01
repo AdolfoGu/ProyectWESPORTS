@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CATALOGO</title>
+    <title>CRUD</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
-    <!--Links Menu-->
-    <link rel="stylesheet" href="/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/fonts/icomoon/style.css">
+     <!--Links Menu-->
+     <link rel="stylesheet" href="/css/owl.carousel.min.css">
+     <link rel="stylesheet" href="/css/bootstrap.min.css">
+     <link rel="stylesheet" href="/fonts/icomoon/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@300;500;600;700&display=swap" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@300;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="fondo">
+
 
   <div class="site-mobile-menu site-navbar-target">
     <div class="site-mobile-menu-header">
@@ -39,7 +40,7 @@
           <nav class="site-navigation text-right ml-auto d-none d-lg-none" role="navigation">
             <ul class="site-menu main-menu js-clone-nav ml-auto ">
               <li><a href="/catalogo" class="nav-link">CATALOGO</a></li>
-              <li><a href="/dashboard" class="nav-link">BITACORA</a></li>
+              <li class="active"><a href="/dashboard" class="nav-link">BITACORA</a></li>
               <li><a href="/profile" class="nav-link">PERFIL</a></li>
               <li><a href="/signup" class="nav-link">SALIR</a></li>
             </ul>
@@ -48,46 +49,61 @@
       </div>
     </div>
   </header>
-  <br><br><br>
-  <div class="container p-4">
+
+
+<br><br>
+  <div class="container p-5">
     <div class="row">
-        <div class="col-md-4 offset-md-4">
-            <div class="card">
-                <div class="card-header text-center">
-                    <h3>Subir Playera</h3>
-                </div>
-                <div class="card-body">
-                    <form action="/upimg" method="post" enctype="multipart/form-data">
-                        <div class="input-group mb-3">
-                            <div class="custom-file">
-                              <input type="file" name="image" class="custom-file-input" id="inputGroupFile02">
-                              <label class="custom-file-label" for="inputGroupFile02"></label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="title" placeholder="Codigo" class="form-control">
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <input type="text" name="description" placeholder="Tipo" class="form-control">
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <button class="btn btn-success btn-block">
-                                Subir
-                            </button>
-                        </div>
-                      <div class="form-group">
-                        <a href="/catalogo" class="btn btn-danger btn-block">
-                          Regresar
-                        </a>
-                      </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+      <div class="col-md-9">
+        <table class="table table-bordered table-hover table-white">
+            <% for(var i = 0; i < products.length; i++){ %>
+            <h1>Bitacora Numero: <%= products[i].Pedido %></h1>
+          <thead>
+            <tr>
+              <th>Elaboro</th>
+              <th>Cliente</th>
+              <th>Fecha</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+              <td><%= products[i].Nombre%></td>
+              <td><%= products[i].Cliente %></td>
+              <td><%= products[i].Fecha %></td>
+
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-md-7">
+          <table class="table table-bordered table-hover table-white">
+              <% for(var i = 0; i < products.length; i++){ %>
+            <thead>
+              <tr>
+                <th>Codigo</th>
+                <th>Descripcion</th>
+                <th>Talla</th>
+                <th>Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td><%= tshirt[i].modelo%></td>
+                <td><%= tshirt[i].descripcion %></td>
+                <td><%= tshirt[i].talla %></td>
+                <td><%= tshirt[i].cantidad %></td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>

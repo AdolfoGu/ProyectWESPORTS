@@ -63,7 +63,15 @@ router.post('/addplayera/:id',isAuthenticated, async (req, res, next) => {
   res.redirect('/bitacora/' + id);
 });
 
-
+router.get('/ver/:id',isAuthenticated, async (req, res, next) => {
+  const { id } = req.params;
+  const products = await Product.find({_id: id});
+  const tshirt = await Tshirt.find({bitacora: id});
+  res.render('verbitacora',{
+    tshirt,
+    products
+  });
+});
 
 
 router.get('/catalogo',isAuthenticated, async(req, res, next) => {
