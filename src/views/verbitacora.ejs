@@ -49,61 +49,66 @@
       </div>
     </div>
   </header>
+<br><br><br><br>
 
 
-<br><br>
-  <div class="container p-5">
-    <div class="row">
-      <div class="col-md-9">
-        <table class="table table-bordered table-hover table-white">
-            <% for(var i = 0; i < products.length; i++){ %>
-            <h1>Bitacora Numero: <%= products[i].Pedido %></h1>
+<!--Tabla V2-->
+<div class="content">
+    
+    <div class="container">
+    <% for(var i = 0; i < products.length; i++){ %>
+      <h2 class="mb-5">Bitacora numero: <%= products[i].Pedido %></h2>
+
+      <div class="table-responsive">
+
+        <table class="table custom-table">
           <thead>
             <tr>
-              <th>Elaboro</th>
-              <th>Cliente</th>
-              <th>Fecha</th>
-              <th>Opciones</th>
+              <th scope="col">
+              </th>
+              <th scope="col">
+            </th>
+              <th scope="col">Elaboro: <%= products[i].Nombre%></th>
+              <th scope="col">Cliente: <%= products[i].Cliente %></th>
+              <th scope="col">Fecha: <%= products[i].Fecha %></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <% } %>
+          <thead>
+            <% for(var i = 0; i < tshirt.length; i++){ %>
+            <tr>
+              <th scope="col">
+              </th>
+              <th scope="col">
+            </th>
+              <th scope="col">Codigo:</th>
+              <th scope="col">Descripcion:</th>
+              <th scope="col">Talla:</th>
+              <th scope="col">Cantidad:</th>
             </tr>
           </thead>
           <tbody>
-              <tr>
-              <td><%= products[i].Nombre%></td>
-              <td><%= products[i].Cliente %></td>
-              <td><%= products[i].Fecha %></td>
-
-              </tr>
+            <tr>
+              <th scope="row">
+              </th>
+              <td>
+              </td>
+              <td><%= tshirt[i].modelo%></td>
+                <td><%= tshirt[i].descripcion %></td>
+                <td><%= tshirt[i].talla %></td>
+                <td><%= tshirt[i].cantidad %></td>
             <% } %>
           </tbody>
         </table>
       </div>
     </div>
-    <div class="row">
-        <div class="col-md-7">
-          <table class="table table-bordered table-hover table-white">
-              <% for(var i = 0; i < products.length; i++){ %>
-            <thead>
-              <tr>
-                <th>Codigo</th>
-                <th>Descripcion</th>
-                <th>Talla</th>
-                <th>Cantidad</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr>
-                <td><%= tshirt[i].modelo%></td>
-                <td><%= tshirt[i].descripcion %></td>
-                <td><%= tshirt[i].talla %></td>
-                <td><%= tshirt[i].cantidad %></td>
-                </tr>
-              <% } %>
-            </tbody>
-          </table>
-        </div>
-      </div>
   </div>
-
+  <div class="mx-auto" style="width: 200px;">
+    <a href="/dashboard" class="btn btn-danger align-items: center">
+        Regresar
+      </a>
+  </div>
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
