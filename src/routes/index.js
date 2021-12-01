@@ -6,6 +6,7 @@ const Image = require('../models/image');
 const Tshirt = require('../models/tshirt');
 const { unlink } = require('fs-extra');
 const path = require('path');
+const tshirt = require('../models/tshirt');
 
 
 router.get('/',(req,res, next)=>{
@@ -123,6 +124,7 @@ router.get('/edit/:id', isAuthenticated,async (req, res, next) => {
 router.get('/delete/:id', isAuthenticated,async (req, res, next) => {
   let { id } = req.params;
   await Product.remove({_id: id});
+  await tshirt.remove({bitacora: id});
   res.redirect('/dashboard');
 });
 
