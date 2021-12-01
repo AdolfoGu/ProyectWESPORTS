@@ -53,65 +53,60 @@
   
       <div class="col-md-5 offset-md-3">
         <div class="card card-body p-4 rounded-0 bg-white text-black">
-          <h3 align="center">Editar Bitácora</h3>
-          <form action="/edit/<%= product._id %>" method="post">
+          <h3 align="center">Editar playera</h3>
+          <form action="/edit/<%= tshirt._id %>" method="post">
             <div class="mb-3">
-              <label for="Nombre">Elaboró:</label>
+              <label for="modelo">Modelo:</label>
               <input
-                id="Nombre"
+                id="modelo"
                 class="form-control rounded-0 bg-white text-black"
                 type="text"
-                name="Nombre"
-                placeholder="Nombre"
+                name="modelo"
+                placeholder="modelo"
                 autofocus
-                value="<%= product.Nombre %>"
+                value="<%= tshirt.modelo %>"
               />
             </div>
         
             <div class="mb-3">
-              <label for="Cliente">Cliente</label>
+              <label for="descripcion">Descripcion</label>
               <input
-                id="Cliente"
+                id="descripcion"
                 class="form-control rounded-0 bg-white text-black"
                 type="text"
-                name="Cliente"
-                placeholder="Cliente"
+                name="descripcion"
+                placeholder="descripcion"
                 autofocus
-                value="<%= product.Cliente %>"
+                value="<%= tshirt.descripcion %>"
               />
             </div>
         
             <div class="mb-3">
-              <label for="Pedido">Número de pedido</label>
+              <label for="talla">Talla</label>
               <input
-                id="Pedido"
+                id="talla"
                 class="form-control rounded-0 bg-white text-black"
                 type="text"
-                name="Pedido"
-                placeholder="Pedido"
+                name="talla"
+                placeholder="talla"
                 autofocus
-                value="<%= product.Pedido %>"
+                value="<%= tshirt.talla %>"
               />
             </div>
 
             <div class="mb-3">
-              <label for="Fecha">Fecha</label>
+              <label for="cantidad">Cantidad</label>
               <input
-                id="Fecha"
+                id="cantidad"
                 class="form-control rounded-0 bg-white text-black"
                 type="text"
-                name="Fecha"
-                placeholder="Fecha"
+                name="cantidad"
+                placeholder="cantidad"
                 autofocus
-                value="<%= product.Fecha %>"
+                value="<%= tshirt.cantidad %>"
               />
             </div>
             <button type="submit" class="btn btn-info">Actualizar</button>
-            <br>
-            <br>
-              <a href="/dashboard" class="btn btn-danger align-items: center">
-                  Regresar
-              </a>
           </form>
         </div>
       </div>

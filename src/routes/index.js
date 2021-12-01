@@ -129,6 +129,25 @@ router.get('/edit/:id', isAuthenticated,async (req, res, next) => {
   res.render('edit', { product });
 });
 
+router.get('/editplayera/:id', isAuthenticated,async (req, res, next) => {
+  const tshirt = await Tshirt.findById(req.params.id);
+  console.log(tshirt)
+  res.render('editplayera', { tshirt });
+});
+
+router.get('/deleteplayera/:id', isAuthenticated,async (req, res, next) => {
+  let { id } = req.params;
+  await tshirt.remove({_id: id});
+  res.redirect('/dashboard');
+});
+
+
+router.post('/edit/:id', isAuthenticated,async (req, res, next) => {
+  const { id } = req.params;
+  await Tshirt.update({_id: id}, req.body);
+  res.redirect('/dashboard');
+});
+
 router.get('/delete/:id', isAuthenticated,async (req, res, next) => {
   let { id } = req.params;
   await Product.remove({_id: id});
