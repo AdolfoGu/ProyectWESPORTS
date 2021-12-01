@@ -3,10 +3,9 @@ const {Schema} = mongoose;
 
 const productSchema = new Schema({
         Nombre: String,
-        Cantidad: String,
-        Marca: String,
-        Descripcion: String,
-        Precio: String,
+        Cliente: String,
+        Pedido: String,
+        Fecha: String,
         Usuario: String,
 });
   

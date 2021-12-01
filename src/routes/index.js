@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const Product = require('../models/products');
-const Image = require('../models/Image');
+const Image = require('../models/image');
+const Tshirt = require('../models/tshirt');
 const { unlink } = require('fs-extra');
 const path = require('path');
 
@@ -42,6 +43,28 @@ router.get('/dashboard',isAuthenticated, async(req, res, next) => {
     });
 });
 
+
+router.get('/bitacora/:id',isAuthenticated, async (req, res, next) => {
+  const { id } = req.params;
+  const tshirt = await Tshirt.find({bitacora: id});
+  const idproducts = id;
+  res.render('bitacora',{
+    tshirt,
+    idproducts
+  });
+});
+
+router.post('/addplayera/:id',isAuthenticated, async (req, res, next) => {
+  const { id } = req.params;
+  const tshirt = new Tshirt (req.body);
+  tshirt.bitacora = id;
+  await tshirt.save();
+  res.redirect('/bitacora/' + id);
+});
+
+
+
+
 router.get('/catalogo',isAuthenticated, async(req, res, next) => {
   const images = await Image.find();
   res.render('catalogo', { images });
@@ -65,10 +88,11 @@ router.post('/upimg',isAuthenticated, async(req, res, next) => {
     res.redirect('catalogo');
 });
 
+
 router.get('/image/:id',isAuthenticated, async(req, res, next) => {
-    const { id } = req.params;
-    const image = await Image.findById(id);
-    res.render('image', { image });
+  const { id } = req.params;
+  const image = await Image.findById(id);
+  res.render('image', { image });
 });
 
 router.get('/image/:id/delete',isAuthenticated, async(req, res, next) => {
@@ -90,19 +114,19 @@ router.post('/add',isAuthenticated, async (req, res, next) => {
     res.redirect('dashboard');
 });
 
-router.get('/edit/:id', async (req, res, next) => {
+router.get('/edit/:id', isAuthenticated,async (req, res, next) => {
   const product = await Product.findById(req.params.id);
   console.log(product)
   res.render('edit', { product });
 });
 
-router.get('/delete/:id', async (req, res, next) => {
+router.get('/delete/:id', isAuthenticated,async (req, res, next) => {
   let { id } = req.params;
   await Product.remove({_id: id});
   res.redirect('/dashboard');
 });
 
-router.post('/edit/:id', async (req, res, next) => {
+router.post('/edit/:id', isAuthenticated,async (req, res, next) => {
   const { id } = req.params;
   await Product.update({_id: id}, req.body);
   res.redirect('/dashboard');
