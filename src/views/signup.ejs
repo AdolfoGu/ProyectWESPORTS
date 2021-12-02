@@ -13,8 +13,7 @@
      <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@300;500;600;700&display=swap" rel="stylesheet">
   </head>
 <body class="fondo">
-<!--Menu-->
- <!--Alertas-->     
+
 <div class="container">
   <%if (signinMessage.length > 0) {%>
     <div class="alert alert-danger">
@@ -27,6 +26,7 @@
     </div>
         <% } %>
 </div>
+
 <div class="limiter">
   <div class="container-login100">
     <div class="wrap-login100">
@@ -38,8 +38,19 @@
 
       <form action="/signup" method="POST" class="login100-form validate-form">
         <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+          <span class="label-input100">Nombre</span>
+          <input class="input100" type="text" name="name" placeholder="Ingresa tu nombre">
+          <span class="focus-input100"></span>
+        </div>
+
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+          <span class="label-input100">Puesto</span>
+          <input class="input100" type="puesto" name="puesto" placeholder="Ingresa tu puesto">
+          <span class="focus-input100"></span>
+        </div>
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
           <span class="label-input100">Correo</span>
-          <input class="input100" type="email" name="email" placeholder="Ingresa tu puesto">
+          <input class="input100" type="email" name="email" placeholder="Ingresa tu correo">
           <span class="focus-input100"></span>
         </div>
 

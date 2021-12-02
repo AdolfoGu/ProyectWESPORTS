@@ -6,6 +6,7 @@ const tshirtSchema = new Schema({
     descripcion: String,
     talla: String,
     cantidad: String,
+    Usuario: String,
     bitacora: String,
 });
 
