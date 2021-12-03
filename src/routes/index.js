@@ -6,6 +6,7 @@ const Inventario = require('../models/inventario');
 const Image = require('../models/image');
 const Tshirt = require('../models/tshirt');
 const User = require('../models/users');
+const Venta = require('../models/venta');
 const { unlink } = require('fs-extra');
 const path = require('path');
 const tshirt = require('../models/tshirt');
@@ -31,13 +32,56 @@ router.post('/signup', async(req, res, next)=>{
     const newUser = new User({ name, puesto, email, password });
     newUser.password = await newUser.encryptPassword(password);
     await newUser.save();
-    res.redirect("/index");
+    res.redirect("/");
   }
 });
 
-router.get('/index',(req, res, next)=>{
-    res.render('index');
+router.post('/registrarventas/:id', isAuthenticated,async (req, res, next) => {
+  const { id } = req.params;
+  const { cantidadv } = req.body;
+  const inventario = await Inventario.findById(id);
+  const cantidad = inventario.cantidad;
+  const modelo = inventario.title;
+  if (cantidadv > cantidad) {
+    req.flash('signupMessage', 'No hay suficiente inventario');
+    res.redirect('/inventario');
+  }else if(cantidadv <= cantidad){
+    nuevaC = cantidad - cantidadv;
+    console.log(nuevaC)
+    await Inventario.update({_id: id} ,{ $set: {cantidad: nuevaC}});
+
+  	var hoy = new Date();
+    var dd = hoy.getDate();
+    var mm = hoy.getMonth()+1;
+    var yyyy = hoy.getFullYear();
+
+    const fecha = dd+'/'+mm+'/'+yyyy;
+
+    const venta = new Venta();
+      venta.CantidadV = cantidadv;
+      venta.Modelo = modelo;
+      venta.Fecha = fecha;
+      venta.Usuario = req.user.id;
+    await venta.save();
+    res.redirect('/inventario');
+  }
 });
+
+router.get('/venta/:id', isAuthenticated,async (req, res, next) => {
+  const { id } = req.params;
+  const inventario = await Inventario.findById(id);
+  res.render('venta', { inventario });
+});
+
+router.get('/verventas',isAuthenticated, async(req, res, next) => {
+  const verventas = await Venta.find({Usuario: req.user.id });
+  const usuario = await User.find({_id: req.user.id});
+  res.render('verventas',{
+    verventas,
+    usuario
+  });
+});
+
 
 router.post('/index', passport.authenticate('local-signin', {
     successRedirect: '/catalogo',
@@ -89,14 +133,12 @@ router.get('/eliminarinventario/:id', isAuthenticated,async (req, res, next) => 
   res.redirect('/inventario');
 });
 
-
 router.get('/dashboard',isAuthenticated, async(req, res, next) => {
     const products = await Product.find({Usuario: req.user.id})
     res.render('dashboard',{
       products
     });
 });
-
 
 router.get('/bitacora/:id',isAuthenticated, async (req, res, next) => {
   const { id } = req.params;
@@ -127,7 +169,6 @@ router.get('/ver/:id',isAuthenticated, async (req, res, next) => {
   });
 });
 
-
 router.get('/catalogo',isAuthenticated, async(req, res, next) => {
   const images = await Image.find();
   res.render('catalogo', { images });
@@ -150,7 +191,6 @@ router.post('/upimg',isAuthenticated, async(req, res, next) => {
     await image.save();
     res.redirect('catalogo');
 });
-
 
 router.get('/image/:id',isAuthenticated, async(req, res, next) => {
   const { id } = req.params;
@@ -194,6 +234,12 @@ router.post('/editusuario/:id', isAuthenticated,async (req, res, next) => {
   res.redirect('/profile');
 });
 
+router.post('/editarcatalogo/:id', isAuthenticated,async (req, res, next) => {
+  const { id } = req.params;
+  await Image.update({_id: id}, req.body);
+  res.redirect('/catalogo');
+});
+
 router.get('/deleteusuario/:id', isAuthenticated,async (req, res, next) => {
   let { id } = req.params;
   await tshirt.remove({Usuario: id});
@@ -202,10 +248,22 @@ router.get('/deleteusuario/:id', isAuthenticated,async (req, res, next) => {
   res.redirect('/index');
 });
 
+router.get('/eliminarventa/:id', isAuthenticated,async (req, res, next) => {
+  let { id } = req.params;
+  await Venta.remove({_id: id});
+  res.redirect('/verventas');
+});
+
 router.get('/editplayera/:id', isAuthenticated,async (req, res, next) => {
   const tshirt = await Tshirt.findById(req.params.id);
   console.log(tshirt)
   res.render('editplayera', { tshirt });
+});
+
+router.get('/editarcatalogo/:id', isAuthenticated,async (req, res, next) => {
+  const image = await Image.findById(req.params.id);
+  console.log(tshirt)
+  res.render('editarcatalogo', { image });
 });
 
 router.get('/deleteplayera/:id', isAuthenticated,async (req, res, next) => {
@@ -213,7 +271,6 @@ router.get('/deleteplayera/:id', isAuthenticated,async (req, res, next) => {
   await tshirt.remove({_id: id});
   res.redirect('/dashboard');
 });
-
 
 router.post('/edit/:id', isAuthenticated,async (req, res, next) => {
   const { id } = req.params;
@@ -233,6 +290,8 @@ router.post('/edit/:id', isAuthenticated,async (req, res, next) => {
   await Product.update({_id: id}, req.body);
   res.redirect('/dashboard');
 });
+
+
 
 function isAuthenticated(req, res, next) {
     if(req.isAuthenticated()) {
