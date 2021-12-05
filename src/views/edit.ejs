@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BITÁCORA</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!--Links Menu-->
     <link rel="stylesheet" href="/css/owl.carousel.min.css">
@@ -16,6 +17,25 @@
      <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@300;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="fondo">
+  <%if (signupMessage.length > 0) {%>
+    <script>
+      Swal.fire({
+        icon: 'error',
+        title: 'Opps...',
+        text: '<%= signupMessage %>'
+      })
+    </script>
+    <% } %>
+
+    <%if (signinMessage.length > 0) {%>
+      <script>
+        Swal.fire({
+          icon: 'success',
+          title: 'Excelente...',
+          text: '<%= signinMessage %>'
+        })
+      </script>
+      <% } %>
   <div class="site-mobile-menu site-navbar-target">
     <div class="site-mobile-menu-header">
       <div class="site-mobile-menu-close mt-3">

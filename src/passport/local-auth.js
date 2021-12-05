@@ -42,4 +42,5 @@ passport.use('local-signin', new localStrattegy({
     return done(null, false, req.flash('signinMessage', 'Contraseña incorrecta'));
   }
   return done(null, user);
+  
 }));
