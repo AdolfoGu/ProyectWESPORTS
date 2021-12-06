@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CATALOGO</title>
+    <title>VENTAS</title>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!--Links Menu-->
@@ -15,8 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@300;500;600;700&display=swap" rel="stylesheet">
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,100;1,500;1,800;1,900&family=Roboto:wght@100&display=swap" rel="stylesheet">
 <body class="fondo">
   <%if (signupMessage.length > 0) {%>
     <script>
@@ -74,8 +73,8 @@
       <div class="card animate__fadeInDown">
         <div class="card-body">
           <h5 class="card-title">Cantidad vendida: <%= venta.CantidadV %></h5>
-          <p class="card-text">Modelo vendido: <%= venta.Modelo %></p>
-          <p class="card-text">Fecha: <%= venta.Fecha %></p>
+          <h6 class="card-text">Modelo vendido: <%= venta.Modelo %></h6>
+          <h6 class="card-text">Fecha: <%= venta.Fecha %></h6>
           <a href="/eliminarventa/<%= venta._id %>" class="btn btn-danger">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
               <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
@@ -86,7 +85,13 @@
     </div>
     <% }) %>
   </div>
-</div>
+</div><!--Footer-->
+<footer class="text-center">
+  <div class="text-center p-3 text-black">
+    © 2021 Copyright:
+    <a class="text-black" href="">Pegasus</a>
+  </div>
+</footer>
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/popper.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
