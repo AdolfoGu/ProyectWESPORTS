@@ -76,7 +76,6 @@
           </thead>
           <% } %>
           <thead>
-            <% for(var i = 0; i < tshirt.length; i++){ %>
             <tr>
               <th scope="col">
               </th>
@@ -89,10 +88,9 @@
             </tr>
           </thead>
           <tbody>
+            <% for(var i = 0; i < tshirt.length; i++){ %>
             <tr>
-              <th scope="row">
-              </th>
-              <td>
+            <th scope="row"><td>
               </td>
               <td><%= tshirt[i].modelo%></td>
                 <td><%= tshirt[i].descripcion %></td>
