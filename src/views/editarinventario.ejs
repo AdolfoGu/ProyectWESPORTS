@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INVENTARIO</title>
+    <link rel="shortcut icon" href="/favicon.ico"/>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <!--Links Menu-->
@@ -98,8 +99,9 @@
               <input
                 id="cantidad"
                 class="form-control rounded-0 bg-white text-black"
-                type="text"
+                type="number"
                 name="cantidad"
+                oninvalid="this.setCustomValidity('Solo numeros enteros')"
                 placeholder="Cantidad"
                 autofocus
                 value="<%= inventario.cantidad %>"

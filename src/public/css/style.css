@@ -8,7 +8,11 @@
   margin-left: 10px;
 }
 .fondo {
-  background-color: #ebeeef;
+  background-image: url(/img/1.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 /*css login V2*/
@@ -24,7 +28,7 @@ html {
 }
 
 a {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 14px;
   line-height: 1.7;
   color: #666666;
@@ -54,7 +58,7 @@ h6 {
 }
 
 p {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 14px;
   line-height: 1.7;
   color: #666666;
@@ -165,7 +169,7 @@ iframe {
 }
 
 .txt1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 13px;
   line-height: 1.4;
   color: #999999;
@@ -188,12 +192,16 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: #ebeeef;
+  background-image: url(/img/1.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .wrap-login100 {
   width: 670px;
-  background: #fff;
+  background: #f3f3f3;
   border-radius: 10px;
   overflow: hidden;
   position: relative;
@@ -220,7 +228,7 @@ iframe {
 }
 
 .login100-form-title-1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 30px;
   color: #fff;
   text-transform: uppercase;
@@ -259,7 +267,7 @@ iframe {
 }
 
 .label-input100 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 15px;
   color: #808080;
   line-height: 1.2;
@@ -271,7 +279,7 @@ iframe {
 }
 
 .input100 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 15px;
   color: #555555;
   line-height: 1.2;
@@ -323,7 +331,7 @@ input.input100 {
 }
 
 .label-checkbox100 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 13px;
   color: #999999;
   line-height: 1.4;
@@ -334,7 +342,7 @@ input.input100 {
 }
 
 .label-checkbox100::before {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   content: "\f00c";
   font-size: 13px;
   color: transparent;
@@ -387,7 +395,7 @@ input.input100 {
   height: 50px;
   background-color: #57b846;
   border-radius: 25px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 16px;
   color: #fff;
   line-height: 1.2;
@@ -442,7 +450,7 @@ input.input100 {
   right: 2px;
   pointer-events: none;
   color: #c80000;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 13px;
   line-height: 1.4;
   text-align: left;
@@ -459,7 +467,7 @@ input.input100 {
   display: block;
   position: absolute;
   color: #c80000;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 15px;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -511,7 +519,7 @@ body.offcanvas-menu:before {
 
 p {
   color: #b3b3b3;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 300;
 }
 
@@ -572,14 +580,13 @@ a:hover {
 .site-navbar .site-logo {
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1rem;
 }
 .site-navbar .site-logo a {
   text-transform: uppercase;
   color: #000;
-  font-family: 'Montserrat', sans-serif;
-
+  font-family: "Montserrat", sans-serif;
 }
 @media (max-width: 991.98px) {
   .site-navbar .site-logo {
@@ -635,7 +642,7 @@ a:hover {
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 .site-navbar .site-navigation .site-menu .has-children .dropdown {
   visibility: hidden;
@@ -819,7 +826,7 @@ a:hover {
   margin-top: 8px;
 }
 .site-mobile-menu .site-mobile-menu-header .site-mobile-menu-close span {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 30px;
   display: inline-block;
   padding-left: 10px;
@@ -898,7 +905,7 @@ a:hover {
 .site-mobile-menu .site-nav-wrap .arrow-collapse:before {
   font-size: 12px;
   z-index: 20;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   content: "\f078";
   position: absolute;
   top: 50%;

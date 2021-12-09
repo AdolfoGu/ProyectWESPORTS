@@ -202,33 +202,59 @@ if(codigo == 0){
   res.redirect('/editarinventario/' + id);
 }else{
   const inven = await Inventario.findOne({title: codigo});
-  const idb = inven._id;
-if(idb != id){
-  req.flash('signupMessage', 'El codigo ya existe');
-  res.redirect('/editarinventario/' + id);
-}else if(des.length == 0){
-  req.flash('signupMessage', 'Ingresa una descripcion');
-  res.redirect('/editarinventario/' + id);
-}else if(des.charCodeAt(0) == 32){
-  req.flash('signupMessage', 'Ingresa una descripcion');
-  res.redirect('/editarinventario/' + id);
-}else if(can.length == 0){
-  req.flash('signupMessage', 'Ingresa una cantidad');
-  res.redirect('/editarinventario/' + id);
-}else if(can.charCodeAt(0) == 32){
-  req.flash('/editarinventario/' + id);
-  res.redirect('agregarinventario');
-}else if(can < 0){
-  req.flash('signupMessage', 'Ingresa una cantidad correcta');
-  res.redirect('/editarinventario/' + id);
-}else if(!Number.isInteger(can)){
-  req.flash('signupMessage', 'Ingresa una cantidad correcta');
-  res.redirect('/editarinventario/' + id);
-}else{
-  await Inventario.update({_id: id}, req.body);
-  req.flash('signupMessage', 'Editado correctamente');
-  res.redirect('/inventario');
-}
+  if(!inven){
+    if(des.length == 0){
+      req.flash('signupMessage', 'Ingresa una descripcion');
+      res.redirect('/editarinventario/' + id);
+    }else if(des.charCodeAt(0) == 32){
+      req.flash('signupMessage', 'Ingresa una descripcion');
+      res.redirect('/editarinventario/' + id);
+    }else if(can == 0){
+      req.flash('signupMessage', 'Ingresa una cantidad');
+      res.redirect('/editarinventario/' + id);
+    }else if(can.charCodeAt(0) == 32){
+      req.flash('/editarinventario/' + id);
+      res.redirect('agregarinventario');
+    }else if(can < 0){
+      req.flash('signupMessage', 'Ingresa una cantidad correcta');
+      res.redirect('/editarinventario/' + id);
+    }else if(can % 1 != 0){
+      req.flash('signupMessage', 'Ingresa una cantidad correcta');
+      res.redirect('/editarinventario/' + id);
+    }else{
+      await Inventario.update({_id: id}, req.body);
+      req.flash('signupMessage', 'Editado correctamente');
+      res.redirect('/inventario');
+    }
+  }else{
+    const idb = inven._id;
+    if(idb != id){
+      req.flash('signupMessage', 'El codigo ya existe');
+      res.redirect('/editarinventario/' + id);
+    }else if(des.length == 0){
+      req.flash('signupMessage', 'Ingresa una descripcion');
+      res.redirect('/editarinventario/' + id);
+    }else if(des.charCodeAt(0) == 32){
+      req.flash('signupMessage', 'Ingresa una descripcion');
+      res.redirect('/editarinventario/' + id);
+    }else if(can.length == 0){
+      req.flash('signupMessage', 'Ingresa una cantidad');
+      res.redirect('/editarinventario/' + id);
+    }else if(can.charCodeAt(0) == 32){
+      req.flash('/editarinventario/' + id);
+      res.redirect('agregarinventario');
+    }else if(can < 0){
+      req.flash('signupMessage', 'Ingresa una cantidad correcta');
+      res.redirect('/editarinventario/' + id);
+    }else if(can % 1 != 0){
+      req.flash('signupMessage', 'Ingresa una cantidad correcta');
+      res.redirect('/editarinventario/' + id);
+    }else{
+      await Inventario.update({_id: id}, req.body);
+      req.flash('signupMessage', 'Editado correctamente');
+      res.redirect('/inventario');
+    }
+    }
 }
 });
 
@@ -457,34 +483,59 @@ router.post('/editusuario/:id', isAuthenticated,async (req, res, next) => {
     res.redirect('/editusuario/' + id);
   }else{
     const user = await User.findOne({email: correo});
-    const idb = user._id;
-    if(name == 0){
-      req.flash('signupMessage', 'Ingresa un nombre');
-      res.redirect('/editusuario/' + id);
-    }else if(name.charCodeAt(0) == 32){
-      req.flash('signupMessage', 'Ingresa un nombre');
-      res.redirect('/editusuario/' + id);
-    }else if(!/^[a-zA-Z ]+$/g.test(name)){
-      req.flash('signupMessage', 'Solo se perimiten letras');
-      res.redirect('/editusuario/' + id);
-    }else if(idb != id){
-      req.flash('signupMessage', 'Este usuario ya existe');
-      res.redirect('/editusuario/' + id);
-    }else if(puesto == 0){
-      req.flash('signupMessage', 'Ingresa un puesto');
-      res.redirect('/editusuario/' + id);
-    }else if(puesto.charCodeAt(0) == 32){
-      req.flash('signupMessage', 'Ingresa un puesto');
-      res.redirect('/editusuario/' + id);
-    }else if(!/^[a-zA-Z ]+$/g.test(puesto)){
-      req.flash('signupMessage', 'Solo se perimiten letras');
-      res.redirect('/editusuario/' + id);
+    if(!user){
+      if(name == 0){
+        req.flash('signupMessage', 'Ingresa un nombre');
+        res.redirect('/editusuario/' + id);
+      }else if(name.charCodeAt(0) == 32){
+        req.flash('signupMessage', 'Ingresa un nombre');
+        res.redirect('/editusuario/' + id);
+      }else if(!/^[a-zA-Z ]+$/g.test(name)){
+        req.flash('signupMessage', 'Solo se perimiten letras');
+        res.redirect('/editusuario/' + id);
+      }else if(puesto == 0){
+        req.flash('signupMessage', 'Ingresa un puesto');
+        res.redirect('/editusuario/' + id);
+      }else if(puesto.charCodeAt(0) == 32){
+        req.flash('signupMessage', 'Ingresa un puesto');
+        res.redirect('/editusuario/' + id);
+      }else if(!/^[a-zA-Z ]+$/g.test(puesto)){
+        req.flash('signupMessage', 'Solo se perimiten letras');
+        res.redirect('/editusuario/' + id);
+      }else{
+        await User.update({_id: id}, req.body);
+        req.flash('signupMessage', 'Editado con existo');
+        res.redirect('/profile');
+      }
     }else{
-      await User.update({_id: id}, req.body);
-      req.flash('signupMessage', 'Editado con existo');
-      res.redirect('/profile');
+      const idb = user._id;
+      if(name == 0){
+        req.flash('signupMessage', 'Ingresa un nombre');
+        res.redirect('/editusuario/' + id);
+      }else if(name.charCodeAt(0) == 32){
+        req.flash('signupMessage', 'Ingresa un nombre');
+        res.redirect('/editusuario/' + id);
+      }else if(!/^[a-zA-Z ]+$/g.test(name)){
+        req.flash('signupMessage', 'Solo se perimiten letras');
+        res.redirect('/editusuario/' + id);
+      }else if(idb != id){
+        req.flash('signupMessage', 'Este usuario ya existe');
+        res.redirect('/editusuario/' + id);
+      }else if(puesto == 0){
+        req.flash('signupMessage', 'Ingresa un puesto');
+        res.redirect('/editusuario/' + id);
+      }else if(puesto.charCodeAt(0) == 32){
+        req.flash('signupMessage', 'Ingresa un puesto');
+        res.redirect('/editusuario/' + id);
+      }else if(!/^[a-zA-Z ]+$/g.test(puesto)){
+        req.flash('signupMessage', 'Solo se perimiten letras');
+        res.redirect('/editusuario/' + id);
+      }else{
+        await User.update({_id: id}, req.body);
+        req.flash('signupMessage', 'Editado con existo');
+        res.redirect('/profile');
+      }
     }
-
   }
 });
 
@@ -501,7 +552,20 @@ router.post('/editarcatalogo/:id', isAuthenticated,async (req, res, next) => {
     res.redirect('/editarcatalogo/' + id);
   }else{
     const imagen = await Image.findOne({title: codigo});
-    const idb = imagen._id;
+    if(!imagen){
+      if(des.charCodeAt(0) == 32){
+        req.flash('signupMessage', 'Introduce una descripcion');
+        res.redirect('/editarcatalogo/' + id);
+      }else if(des.length == 0){
+        req.flash('signupMessage', 'Introduce una descripcion');
+        res.redirect('/editarcatalogo/' + id);
+      }else{
+        await Image.update({_id: id}, req.body);
+        req.flash('signupMessage', 'Editado correctamente');
+        res.redirect('/catalogo');
+      }
+    }else{
+      const idb = imagen._id;
     if(idb != id){
       req.flash('signupMessage', 'Este codigo ya existe');
       res.redirect('/editarcatalogo/' + id);
@@ -515,6 +579,7 @@ router.post('/editarcatalogo/:id', isAuthenticated,async (req, res, next) => {
       await Image.update({_id: id}, req.body);
       req.flash('signupMessage', 'Editado correctamente');
       res.redirect('/catalogo');
+    }
     }
   }
 });
@@ -561,47 +626,89 @@ router.post('/edit/:id', isAuthenticated,async (req, res, next) => {
   const pedido = req.body.Pedido;
   const fecha = req.body.Fecha;
   const pe = await Product.findOne({Pedido: pedido});
-  const idb = pe._id;
-  if(idb != id){
-    req.flash('signupMessage', 'El pedido ya existe');
-    res.redirect('/edit/' + id);
-  }else if(nombre == 0){
-    req.flash('signupMessage', 'Ingresa un nombre');
-    res.redirect('/edit/' + id);
-  }else if(nombre.charCodeAt(0) == 32){
-    req.flash('signupMessage', 'Ingresa un nombre');
-    res.redirect('/edit/' + id);
-  }else if(!/^[a-zA-Z ]+$/g.test(nombre)){
-    req.flash('signupMessage', 'Solo se permiten letras');
-    res.redirect('/edit/' + id);
-  }else if(cliente == 0){
-    req.flash('signupMessage', 'Introduce el nombre del cliente');
-    res.redirect('/edit/' + id);
-  }else if(cliente.charCodeAt(0) == 32){
-    req.flash('signupMessage', 'Introduce el nombre del cliente');
-    res.redirect('/edit/' + id);
-  }else if(!/^[a-zA-Z ]+$/g.test(cliente)){
-    req.flash('signupMessage', 'Solo se permiten letras');
-    res.redirect('/edit/' + id);
-  }else if(pedido == 0){
-    req.flash('signupMessage', 'Introduce el numero de pedido');
-    res.redirect('/edit/' + id);
-  }else if(pedido.charCodeAt(0) == 32){
-    req.flash('signupMessage', 'Introduce el numero de pedido');
-    res.redirect('/edit/' + id);
-  }else if(!/^[0-9]+$/g.test(pedido)){
-    req.flash('signupMessage', 'Solo se permiten numeros');
-    res.redirect('/edit/' + id);
-  }else if(fecha == 0){
-    req.flash('signupMessage', 'Ingresa una fecha');
-    res.redirect('/edit/' + id);
-  }else if(fecha.charCodeAt(0) == 32){
-    req.flash('signupMessage', 'Ingresa una fecha');
-    res.redirect('/edit/' + id);
+  
+  if(!pe){
+    if(nombre == 0){
+      req.flash('signupMessage', 'Ingresa un nombre');
+      res.redirect('/edit/' + id);
+    }else if(nombre.charCodeAt(0) == 32){
+      req.flash('signupMessage', 'Ingresa un nombre');
+      res.redirect('/edit/' + id);
+    }else if(!/^[a-zA-Z ]+$/g.test(nombre)){
+      req.flash('signupMessage', 'Solo se permiten letras');
+      res.redirect('/edit/' + id);
+    }else if(cliente == 0){
+      req.flash('signupMessage', 'Introduce el nombre del cliente');
+      res.redirect('/edit/' + id);
+    }else if(cliente.charCodeAt(0) == 32){
+      req.flash('signupMessage', 'Introduce el nombre del cliente');
+      res.redirect('/edit/' + id);
+    }else if(!/^[a-zA-Z ]+$/g.test(cliente)){
+      req.flash('signupMessage', 'Solo se permiten letras');
+      res.redirect('/edit/' + id);
+    }else if(pedido == 0){
+      req.flash('signupMessage', 'Introduce el numero de pedido');
+      res.redirect('/edit/' + id);
+    }else if(pedido.charCodeAt(0) == 32){
+      req.flash('signupMessage', 'Introduce el numero de pedido');
+      res.redirect('/edit/' + id);
+    }else if(!/^[0-9]+$/g.test(pedido)){
+      req.flash('signupMessage', 'Solo se permiten numeros');
+      res.redirect('/edit/' + id);
+    }else if(fecha == 0){
+      req.flash('signupMessage', 'Ingresa una fecha');
+      res.redirect('/edit/' + id);
+    }else if(fecha.charCodeAt(0) == 32){
+      req.flash('signupMessage', 'Ingresa una fecha');
+      res.redirect('/edit/' + id);
+    }else{
+      await Product.update({_id: id}, req.body);
+      req.flash('signinMessage', 'Editado correctamente');
+      res.redirect('/dashboard');
+    }
   }else{
-    await Product.update({_id: id}, req.body);
-    req.flash('signinMessage', 'Editado correctamente');
-    res.redirect('/dashboard');
+    const idb = pe._id;
+    if(idb != id){
+      req.flash('signupMessage', 'El pedido ya existe');
+      res.redirect('/edit/' + id);
+    }else if(nombre == 0){
+      req.flash('signupMessage', 'Ingresa un nombre');
+      res.redirect('/edit/' + id);
+    }else if(nombre.charCodeAt(0) == 32){
+      req.flash('signupMessage', 'Ingresa un nombre');
+      res.redirect('/edit/' + id);
+    }else if(!/^[a-zA-Z ]+$/g.test(nombre)){
+      req.flash('signupMessage', 'Solo se permiten letras');
+      res.redirect('/edit/' + id);
+    }else if(cliente == 0){
+      req.flash('signupMessage', 'Introduce el nombre del cliente');
+      res.redirect('/edit/' + id);
+    }else if(cliente.charCodeAt(0) == 32){
+      req.flash('signupMessage', 'Introduce el nombre del cliente');
+      res.redirect('/edit/' + id);
+    }else if(!/^[a-zA-Z ]+$/g.test(cliente)){
+      req.flash('signupMessage', 'Solo se permiten letras');
+      res.redirect('/edit/' + id);
+    }else if(pedido == 0){
+      req.flash('signupMessage', 'Introduce el numero de pedido');
+      res.redirect('/edit/' + id);
+    }else if(pedido.charCodeAt(0) == 32){
+      req.flash('signupMessage', 'Introduce el numero de pedido');
+      res.redirect('/edit/' + id);
+    }else if(!/^[0-9]+$/g.test(pedido)){
+      req.flash('signupMessage', 'Solo se permiten numeros');
+      res.redirect('/edit/' + id);
+    }else if(fecha == 0){
+      req.flash('signupMessage', 'Ingresa una fecha');
+      res.redirect('/edit/' + id);
+    }else if(fecha.charCodeAt(0) == 32){
+      req.flash('signupMessage', 'Ingresa una fecha');
+      res.redirect('/edit/' + id);
+    }else{
+      await Product.update({_id: id}, req.body);
+      req.flash('signinMessage', 'Editado correctamente');
+      res.redirect('/dashboard');
+    }
   }
 });
 
