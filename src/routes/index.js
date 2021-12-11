@@ -10,6 +10,7 @@ const Venta = require('../models/venta');
 const { unlink } = require('fs-extra');
 const path = require('path');
 const tshirt = require('../models/tshirt');
+const bcrypt = require('bcrypt-nodejs');
 
 
 router.get('/',(req,res, next)=>{
@@ -194,68 +195,68 @@ router.post('/editarinventario/:id', isAuthenticated,async (req, res, next) => {
   const des = req.body.description;
   const can = req.body.cantidad;
 
-if(codigo == 0){
-  req.flash('signupMessage', 'Introduce un Codigo');
+  if(codigo == 0){
+    req.flash('signupMessage', 'Introduce un Codigo');
+      res.redirect('/editarinventario/' + id);
+  }else if(codigo.charCodeAt(0) == 32){
+    req.flash('signupMessage', 'Introduce un Codigo');
     res.redirect('/editarinventario/' + id);
-}else if(codigo.charCodeAt(0) == 32){
-  req.flash('signupMessage', 'Introduce un Codigo');
-  res.redirect('/editarinventario/' + id);
-}else{
-  const inven = await Inventario.findOne({title: codigo});
-  if(!inven){
-    if(des.length == 0){
-      req.flash('signupMessage', 'Ingresa una descripcion');
-      res.redirect('/editarinventario/' + id);
-    }else if(des.charCodeAt(0) == 32){
-      req.flash('signupMessage', 'Ingresa una descripcion');
-      res.redirect('/editarinventario/' + id);
-    }else if(can == 0){
-      req.flash('signupMessage', 'Ingresa una cantidad');
-      res.redirect('/editarinventario/' + id);
-    }else if(can.charCodeAt(0) == 32){
-      req.flash('/editarinventario/' + id);
-      res.redirect('agregarinventario');
-    }else if(can < 0){
-      req.flash('signupMessage', 'Ingresa una cantidad correcta');
-      res.redirect('/editarinventario/' + id);
-    }else if(can % 1 != 0){
-      req.flash('signupMessage', 'Ingresa una cantidad correcta');
-      res.redirect('/editarinventario/' + id);
-    }else{
-      await Inventario.update({_id: id}, req.body);
-      req.flash('signupMessage', 'Editado correctamente');
-      res.redirect('/inventario');
-    }
   }else{
-    const idb = inven._id;
-    if(idb != id){
-      req.flash('signupMessage', 'El codigo ya existe');
-      res.redirect('/editarinventario/' + id);
-    }else if(des.length == 0){
-      req.flash('signupMessage', 'Ingresa una descripcion');
-      res.redirect('/editarinventario/' + id);
-    }else if(des.charCodeAt(0) == 32){
-      req.flash('signupMessage', 'Ingresa una descripcion');
-      res.redirect('/editarinventario/' + id);
-    }else if(can.length == 0){
-      req.flash('signupMessage', 'Ingresa una cantidad');
-      res.redirect('/editarinventario/' + id);
-    }else if(can.charCodeAt(0) == 32){
-      req.flash('/editarinventario/' + id);
-      res.redirect('agregarinventario');
-    }else if(can < 0){
-      req.flash('signupMessage', 'Ingresa una cantidad correcta');
-      res.redirect('/editarinventario/' + id);
-    }else if(can % 1 != 0){
-      req.flash('signupMessage', 'Ingresa una cantidad correcta');
-      res.redirect('/editarinventario/' + id);
+    const inven = await Inventario.findOne({title: codigo});
+    if(!inven){
+      if(des.length == 0){
+        req.flash('signupMessage', 'Ingresa una descripcion');
+        res.redirect('/editarinventario/' + id);
+      }else if(des.charCodeAt(0) == 32){
+        req.flash('signupMessage', 'Ingresa una descripcion');
+        res.redirect('/editarinventario/' + id);
+      }else if(can == 0){
+        req.flash('signupMessage', 'Ingresa una cantidad');
+        res.redirect('/editarinventario/' + id);
+      }else if(can.charCodeAt(0) == 32){
+        req.flash('/editarinventario/' + id);
+        res.redirect('agregarinventario');
+      }else if(can < 0){
+        req.flash('signupMessage', 'Ingresa una cantidad correcta');
+        res.redirect('/editarinventario/' + id);
+      }else if(can % 1 != 0){
+        req.flash('signupMessage', 'Ingresa una cantidad correcta');
+        res.redirect('/editarinventario/' + id);
+      }else{
+        await Inventario.update({_id: id}, req.body);
+        req.flash('signupMessage', 'Editado correctamente');
+        res.redirect('/inventario');
+      }
     }else{
-      await Inventario.update({_id: id}, req.body);
-      req.flash('signupMessage', 'Editado correctamente');
-      res.redirect('/inventario');
-    }
-    }
-}
+      const idb = inven._id;
+      if(idb != id){
+        req.flash('signupMessage', 'El codigo ya existe');
+        res.redirect('/editarinventario/' + id);
+      }else if(des.length == 0){
+        req.flash('signupMessage', 'Ingresa una descripcion');
+        res.redirect('/editarinventario/' + id);
+      }else if(des.charCodeAt(0) == 32){
+        req.flash('signupMessage', 'Ingresa una descripcion');
+        res.redirect('/editarinventario/' + id);
+      }else if(can.length == 0){
+        req.flash('signupMessage', 'Ingresa una cantidad');
+        res.redirect('/editarinventario/' + id);
+      }else if(can.charCodeAt(0) == 32){
+        req.flash('/editarinventario/' + id);
+        res.redirect('agregarinventario');
+      }else if(can < 0){
+        req.flash('signupMessage', 'Ingresa una cantidad correcta');
+        res.redirect('/editarinventario/' + id);
+      }else if(can % 1 != 0){
+        req.flash('signupMessage', 'Ingresa una cantidad correcta');
+        res.redirect('/editarinventario/' + id);
+      }else{
+        await Inventario.update({_id: id}, req.body);
+        req.flash('signupMessage', 'Editado correctamente');
+        res.redirect('/inventario');
+      }
+      }
+  }
 });
 
 router.get('/eliminarinventario/:id', isAuthenticated,async (req, res, next) => {
@@ -474,6 +475,7 @@ router.post('/editusuario/:id', isAuthenticated,async (req, res, next) => {
   const name = req.body.name;
   const puesto = req.body.puesto;
   const correo = req.body.email;
+  const contr = req.body.password;
 
   if(correo == 0){
     req.flash('signupMessage', 'Ingresa un correo');
@@ -502,9 +504,19 @@ router.post('/editusuario/:id', isAuthenticated,async (req, res, next) => {
       }else if(!/^[a-zA-Z ]+$/g.test(puesto)){
         req.flash('signupMessage', 'Solo se perimiten letras');
         res.redirect('/editusuario/' + id);
+      }else if(contr.length < 4){
+        req.flash('signupMessage', 'Password debe de ser mayor a 4');
+        res.redirect('/editusuario/' + id);
+      }else if(contr == 0){
+        req.flash('signupMessage', 'Ingresa un Password');
+        res.redirect('/editusuario/' + id);
+      }else if(contr.charCodeAt(0) == 32){
+        req.flash('signupMessage', 'Ingresa un Password');
+        res.redirect('/editusuario/' + id);
       }else{
-        await User.update({_id: id}, req.body);
-        req.flash('signupMessage', 'Editado con existo');
+        
+        await User.update({_id: id}, { $set: {name: name , puesto: puesto, email: correo , password: user.encryptPassword(contr)}});
+        req.flash('signupMessage', 'Editado con exito');
         res.redirect('/profile');
       }
     }else{
@@ -530,9 +542,19 @@ router.post('/editusuario/:id', isAuthenticated,async (req, res, next) => {
       }else if(!/^[a-zA-Z ]+$/g.test(puesto)){
         req.flash('signupMessage', 'Solo se perimiten letras');
         res.redirect('/editusuario/' + id);
+      }else if(contr.length < 4){
+        req.flash('signupMessage', 'Password debe de ser mayor a 4');
+        res.redirect('/editusuario/' + id);
+      }else if(contr == 0){
+        req.flash('signupMessage', 'Ingresa un Password');
+        res.redirect('/editusuario/' + id);
+      }else if(contr.charCodeAt(0) == 32){
+        req.flash('signupMessage', 'Ingresa un Password');
+        res.redirect('/editusuario/' + id);
       }else{
-        await User.update({_id: id}, req.body);
-        req.flash('signupMessage', 'Editado con existo');
+      
+        await User.update({_id: id}, { $set: {name: name , puesto: puesto, email: correo , password: user.encryptPassword(contr)}});
+        req.flash('signupMessage', 'Editado con exito');
         res.redirect('/profile');
       }
     }
