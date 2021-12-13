@@ -85,9 +85,13 @@
     <% inventario.forEach(function (inventario) { %>
     <div class="col-sm-3">
       <div class="card animate__fadeInDown">
-        <img src="<%= inventario.path %>" class="card-img-top" alt="<%= inventario.filename %>">
+        <% images.forEach(function (image) { %>
+          <% if(image.title == inventario.codigo){ %>
+        <img src="<%= image.path %>" class="card-img-top" alt="<%= image.filename %>">
         <div class="card-body">
-          <h5 class="card-title"><%= inventario.title %></h5>
+          <h5 class="card-title"><%= image.title %></h5>
+          <% } %>
+          <% }) %>
           <h5 class="card-text">Cantidad: <%= inventario.cantidad %></h5>
 
           <div class="btn-group">

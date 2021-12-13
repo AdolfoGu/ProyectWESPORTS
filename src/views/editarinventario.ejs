@@ -68,19 +68,19 @@
         <div class="card card-body p-4 rounded-0 bg-white text-black">
           <h3 align="center">Editar Inventario</h3>
           <form action="/editarinventario/<%= inventario._id %>" method="post">
+            <!--
             <div class="mb-3">
               <label for="name">Codigo:</label>
-              <input
-                id="title"
-                class="form-control rounded-0 bg-white text-black"
-                type="text"
-                name="title"
-                placeholder="Codigo"
-                autofocus
-                value="<%= inventario.title %>"
-              />
+              <input id="title" class="form-control rounded-0 bg-white text-black" type="text" name="title" placeholder="Codigo" autofocus value="<%= inventario.title %>"/>
             </div>
-        
+        -->
+            <select class="form-select" aria-label="Default select example" name="codigo">
+              <option><%= inventario.codigo %></option>
+              <% images.forEach(function (image) { %>
+              <option value="<%= image.title %>"><%= image.title %></option>
+              <% }) %>
+            </select>
+            <br>
             <div class="mb-3">
               <label for="description">Descripcion</label>
               <input
@@ -90,7 +90,7 @@
                 name="description"
                 placeholder="Descripcion"
                 autofocus
-                value="<%= inventario.description %>"
+                value="<%= inventario.descripcion %>"
               />
             </div>
         

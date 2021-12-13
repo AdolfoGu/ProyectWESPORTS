@@ -68,7 +68,7 @@ router.post('/registrarventas/:id', isAuthenticated,async (req, res, next) => {
   const { cantidadv } = req.body;
   const inventario = await Inventario.findById(id);
   const cantidad = inventario.cantidad;
-  const modelo = inventario.title;
+  const modelo = inventario.codigo;
 
   if(cantidadv == 0){
     req.flash('signupMessage', 'Ingrese una cantidad correcta');
@@ -132,36 +132,32 @@ router.get('/profile',isAuthenticated, (req, res, next) => {
 
 router.get('/inventario',isAuthenticated, async(req, res, next) => {
   const inventario = await Inventario.find();
+  const images = await Image.find();
   res.render('inventario',{
-    inventario
+    inventario,
+    images
   });
 });
 
 router.get('/agregarinventario',isAuthenticated, async(req, res, next) => {
-  res.render('agregarinventario');
+  const images = await Image.find();
+  res.render('agregarinventario',{ images });
 });
 
 router.post('/addinventario',isAuthenticated, async(req, res, next) => {
   inventario = new Inventario();
-
-  const titulo = req.body.title;
+  const titulo = req.body.codigo;
   const des = req.body.description;
   const can = req.body.cantidad;
-  const inv = await Inventario.findOne({title: titulo});
+  const inv = await Inventario.findOne({codigo: titulo});
   if(inv){
     req.flash('signupMessage', 'Ya existe el codigo');
     res.redirect('agregarinventario');
-  }else if(titulo.length == 0){
-    req.flash('signupMessage', 'Introduce un Codigo');
-    res.redirect('agregarinventario');
-  }else if(titulo.charCodeAt(0) == 32){
-    req.flash('signupMessage', 'Introduce un Codigo');
-    res.redirect('agregarinventario');
   }else if(des.length == 0){
-    req.flash('signupMessage', 'Ingresa una descripcion');
+    req.flash('signupMessage', 'Agrega una descripcion');
     res.redirect('agregarinventario');
   }else if(des.charCodeAt(0) == 32){
-    req.flash('signupMessage', 'Ingresa una descripcion');
+    req.flash('signupMessage', 'Agrega una descripcion');
     res.redirect('agregarinventario');
   }else if(can.length == 0){
     req.flash('signupMessage', 'Ingresa una cantidad');
@@ -173,10 +169,9 @@ router.post('/addinventario',isAuthenticated, async(req, res, next) => {
     req.flash('signupMessage', 'Ingresa una cantidad correcta');
     res.redirect('agregarinventario');
   }else{
-    inventario.title = req.body.title;
-    inventario.description = req.body.description;
+    inventario.codigo = req.body.codigo;
+    inventario.descripcion = req.body.description;
     inventario.cantidad = req.body.cantidad;
-    inventario.path = '/img/up/' + req.file.filename;
     await inventario.save();
     req.flash('signupMessage', 'Producto Guardado');
     res.redirect('inventario');
@@ -186,29 +181,28 @@ router.post('/addinventario',isAuthenticated, async(req, res, next) => {
 router.get('/editarinventario/:id', isAuthenticated,async (req, res, next) => {
   const { id } = req.params;
   const inventario = await Inventario.findById(id);
-  res.render('editarinventario', { inventario });
+  const images = await Image.find();
+  res.render('editarinventario', { 
+    inventario,
+    images
+  });
 });
 
 router.post('/editarinventario/:id', isAuthenticated,async (req, res, next) => {
   const { id } = req.params;
-  const codigo = req.body.title;
+  const codigo = req.body.codigo;
   const des = req.body.description;
   const can = req.body.cantidad;
-
-  if(codigo == 0){
-    req.flash('signupMessage', 'Introduce un Codigo');
-      res.redirect('/editarinventario/' + id);
-  }else if(codigo.charCodeAt(0) == 32){
-    req.flash('signupMessage', 'Introduce un Codigo');
-    res.redirect('/editarinventario/' + id);
-  }else{
-    const inven = await Inventario.findOne({title: codigo});
+  const inven = await Inventario.findOne({codigo: codigo});
     if(!inven){
       if(des.length == 0){
         req.flash('signupMessage', 'Ingresa una descripcion');
         res.redirect('/editarinventario/' + id);
       }else if(des.charCodeAt(0) == 32){
         req.flash('signupMessage', 'Ingresa una descripcion');
+        res.redirect('/editarinventario/' + id);
+      }else if(can.length == 0){
+        req.flash('signupMessage', 'Ingresa una cantidad');
         res.redirect('/editarinventario/' + id);
       }else if(can == 0){
         req.flash('signupMessage', 'Ingresa una cantidad');
@@ -223,7 +217,7 @@ router.post('/editarinventario/:id', isAuthenticated,async (req, res, next) => {
         req.flash('signupMessage', 'Ingresa una cantidad correcta');
         res.redirect('/editarinventario/' + id);
       }else{
-        await Inventario.update({_id: id}, req.body);
+        await Inventario.update({_id: id},{ $set: {codigo: codigo , descripcion: des, cantidad: can}});
         req.flash('signupMessage', 'Editado correctamente');
         res.redirect('/inventario');
       }
@@ -251,12 +245,11 @@ router.post('/editarinventario/:id', isAuthenticated,async (req, res, next) => {
         req.flash('signupMessage', 'Ingresa una cantidad correcta');
         res.redirect('/editarinventario/' + id);
       }else{
-        await Inventario.update({_id: id}, req.body);
+        await Inventario.update({_id: id},{ $set: {codigo: codigo , descripcion: des, cantidad: can}});
         req.flash('signupMessage', 'Editado correctamente');
         res.redirect('/inventario');
       }
-      }
-  }
+    }
 });
 
 router.get('/eliminarinventario/:id', isAuthenticated,async (req, res, next) => {
