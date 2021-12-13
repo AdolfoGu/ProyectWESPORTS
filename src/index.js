@@ -8,12 +8,12 @@ const passport = require("passport");
 const morgan = require("morgan");
 const { v4: uuidv4 } = require("uuid");
 
-// initializations
+// Inicializacion
 const app = express();
 require("./database");
 require("./passport/local-auth");
 
-// settings
+// Configuraciones
 app.listen(3000);
 const storage = multer.diskStorage({
   destination: path.join(__dirname, "public/img/up"),

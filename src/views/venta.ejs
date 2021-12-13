@@ -8,7 +8,6 @@
     <link rel="shortcut icon" href="/favicon.ico"/>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
-    <!--Links Menu-->
     <link rel="stylesheet" href="/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/fonts/icomoon/style.css">
@@ -35,7 +34,6 @@
     </div>
     <div class="site-mobile-menu-body"></div>
   </div>
-  
   <header class="site-navbar site-navbar-target py-4" role="banner">
     <div class="container">
       <div class="row align-items-center position-relative">
@@ -48,7 +46,7 @@
           <span class="d-inline-block d-lg-block"><a href="#" class="text-black site-menu-toggle js-menu-toggle py-5"><span class="icon-menu h3 text-black"></span></a></span>
           <nav class="site-navigation text-right ml-auto d-none d-lg-none" role="navigation">
             <ul class="site-menu main-menu js-clone-nav ml-auto ">
-              <li><a href="/catalogo" class="nav-link">CATALOGO</a></li>
+              <li><a href="/catalogo" class="nav-link">CATÁLOGO</a></li>
               <li><a href="/inventario" class="nav-link">INVENTARIO</a></li>
               <li><a href="/dashboard" class="nav-link">BITÁCORA</a></li>
               <li class="active"><a href="/verventas" class="nav-link">VENTAS</a></li>
@@ -63,79 +61,39 @@
   <br><br>
   <div class="container p-5">
     <div class="row">
-  
       <div class="col-md-5 offset-md-3">
         <div class="card card-body p-4 rounded-0 bg-white text-black">
           <h3 align="center">Venta</h3>
           <form action="/registrarventas/<%= inventario._id %>" method="post">
             <div class="mb-3">
               <label for="name">Codigo:</label>
-              <input
-                id="title"
-                readonly="readonly"
-                class="form-control rounded-0 bg-white text-black"
-                type="text"
-                name="title"
-                placeholder="Codigo"
-                autofocus
-                value="<%= inventario.codigo %>"
-              />
+              <input id="title" readonly="readonly" class="form-control rounded-0 bg-white text-black" type="text" name="title" placeholder="Codigo" autofocus value="<%= inventario.codigo %>"/>
             </div>
-        
             <div class="mb-3">
               <label for="description">Descripcion</label>
-              <input
-                id="description"
-                readonly="readonly"
-                class="form-control rounded-0 bg-white text-black"
-                type="text"
-                name="description"
-                placeholder="Descripcion"
-                autofocus
-                value="<%= inventario.descripcion %>"
-              />
+              <input id="description" readonly="readonly" class="form-control rounded-0 bg-white text-black" type="text" name="description" placeholder="Descripcion" autofocus value="<%= inventario.descripcion %>"/>
             </div>
-        
             <div class="mb-3">
               <label for="cantidad">Cantidad</label>
-              <input
-                id="cantidad"
-                readonly="readonly"
-                class="form-control rounded-0 bg-white text-black"
-                type="text"
-                name="cantidad"
-                placeholder="Cantidad"
-                autofocus
-                value="<%= inventario.cantidad %>"
-              />
+              <input id="cantidad" readonly="readonly" class="form-control rounded-0 bg-white text-black" type="text" name="cantidad" placeholder="Cantidad" autofocus value="<%= inventario.cantidad %>"/>
             </div>
-
             <div class="mb-3">
                 <label for="cantidadv">Cantidad vendida</label>
-                <input
-                  id="cantidadv"
-                  class="form-control rounded-0 bg-white text-black"
-                  oninvalid="this.setCustomValidity('Solo numeros enteros')"
-                  type="number"
-                  name="cantidadv"
-                  placeholder="Cantidad Vendida"
-                  autofocus
-                />
+                <input id="cantidadv" class="form-control rounded-0 bg-white text-black" oninvalid="this.setCustomValidity('Solo numeros enteros')" type="number" name="cantidadv" placeholder="Cantidad Vendida" autofocus/>
               </div>
-
               <div class="form-group">
-            <button type="submit" class="btn btn-warning btn-block">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
-                <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
-              </svg>
-              Vender</button>
-            </div>
-    
+                <button type="submit" class="btn btn-warning btn-block">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar" viewBox="0 0 16 16">
+                    <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
+                  </svg>
+                  Vender
+                </button>
+              </div>
               <div class="form-group">
                 <a href="/inventario" class="btn btn-danger btn-block">
                     Regresar
                 </a>
-            </div>
+              </div>
           </form>
         </div>
       </div>
