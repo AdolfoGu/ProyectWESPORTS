@@ -156,13 +156,20 @@ textarea::-moz-placeholder {
 textarea:-ms-input-placeholder {
   color: #999999;
 }
-
-label {
-  display: block;
-  margin: 0;
-  margin: .4rem 0;
+th{
+  font-family:"Montserrat", sans-serif;
 }
-
+td{
+  font-family:"Montserrat", sans-serif;
+}
+label {
+  margin: 0;
+  font-family:"Montserrat", sans-serif;
+}
+input{
+  font-family:"Montserrat", sans-serif;
+}
+ 
 button {
   outline: none !important;
   border: none;
